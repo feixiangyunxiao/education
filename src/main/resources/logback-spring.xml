@@ -28,11 +28,6 @@
         <appender-ref ref="logFile" />
     </logger>
 
-    <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
-        <level>ERROR</level>
-        <onMatch>ACCEPT</onMatch>
-        <onMismatch>DENY</onMismatch>
-    </filter>
 
     <root level="error">
         <appender-ref ref="console"/>

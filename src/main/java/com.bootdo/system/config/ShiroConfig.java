@@ -73,20 +73,21 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSuccessUrl("/index");
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/login","anon");
-        filterChainDefinitionMap.put("/getVerify","anon");
-        filterChainDefinitionMap.put("/css/**", "anon");
-        filterChainDefinitionMap.put("/js/**", "anon");
-        filterChainDefinitionMap.put("/fonts/**", "anon");
-        filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/login","anon"); //未失效
+        filterChainDefinitionMap.put("/getVerify","anon"); //未失效
+        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");// 失效了
+        filterChainDefinitionMap.put("/js/**", "anon");// 失效了
+        filterChainDefinitionMap.put("/fonts/**", "anon");// 失效了
+        filterChainDefinitionMap.put("/img/**", "anon");// 失效了
         filterChainDefinitionMap.put("/docs/**", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
-        filterChainDefinitionMap.put("/upload/**", "anon");
-        filterChainDefinitionMap.put("/files/**", "anon");
-        filterChainDefinitionMap.put("/logout", "logout");
+        filterChainDefinitionMap.put("/upload/**", "anon");//未失效
+        filterChainDefinitionMap.put("/files/**", "anon");//未失效
+        filterChainDefinitionMap.put("/logout", "logout");//未失效
         filterChainDefinitionMap.put("/", "anon");
-        filterChainDefinitionMap.put("/blog", "anon");
-        filterChainDefinitionMap.put("/blog/open/**", "anon");
+        filterChainDefinitionMap.put("/blog", "anon");//未失效
+        filterChainDefinitionMap.put("/blog/open/**", "anon");// 失效了
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

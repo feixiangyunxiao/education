@@ -6,6 +6,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.File;
+import java.util.Collection;
 import java.util.Map;
 
 @Configuration
@@ -22,7 +24,7 @@ public class XssConfig{
 		filterRegistrationBean.setEnabled(false);
 		filterRegistrationBean.addUrlPatterns("/*");
 		Map<String, String> initParameters = Maps.newHashMap();
-		initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
+		initParameters.put("excludes", "/favicon.ico,/img/**,/js/**,/css/**");
 		initParameters.put("isIncludeRichText", "true");
 		filterRegistrationBean.setInitParameters(initParameters);
 		return filterRegistrationBean;
