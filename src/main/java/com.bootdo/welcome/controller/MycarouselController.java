@@ -1,7 +1,10 @@
 package com.bootdo.welcome.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +22,7 @@ import com.bootdo.welcome.service.MycarouselService;
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  * 
@@ -71,9 +74,22 @@ public class MycarouselController {
 	 * 保存
 	 */
 	@ResponseBody
-	@PostMapping("/save")
+	@RequestMapping("/save")
 	@RequiresPermissions("welcome:mycarousel:add")
-	public R save( MycarouselDO mycarousel){
+	public R save(MycarouselDO mycarousel){
+		/*String suffix = picfile.getOriginalFilename().substring(picfile.getOriginalFilename().lastIndexOf("."));
+		String prefix = UUID.randomUUID().toString();
+		String fileName = "E:/Download/" + prefix + suffix;
+		try {
+			picfile.transferTo(new File(fileName));
+			mycarousel.setPicname(fileName);
+			if(mycarouselService.save(mycarousel)>0){
+				return R.ok();
+			}
+		} catch (IOException e) {
+			System.out.println("出错了");
+			e.printStackTrace();
+		}*/
 		if(mycarouselService.save(mycarousel)>0){
 			return R.ok();
 		}

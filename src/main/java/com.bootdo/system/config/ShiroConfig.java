@@ -84,7 +84,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/upload/**", "anon");//未失效
         filterChainDefinitionMap.put("/files/**", "anon");//未失效
-        filterChainDefinitionMap.put("/logout", "logout");//未失效
+        filterChainDefinitionMap.put("/logout", "anon");//未失效
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/blog", "anon");//未失效
         filterChainDefinitionMap.put("/blog/open/**", "anon");// 失效了

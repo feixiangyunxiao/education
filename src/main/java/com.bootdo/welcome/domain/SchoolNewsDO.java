@@ -10,9 +10,9 @@ import java.util.Date;
  * 
  * @author chglee
  * @email 1992lcg@163.com
- * @date 2019-05-14 15:29:13
+ * @date 2019-05-15 17:11:06
  */
-public class MycarouselDO implements Serializable {
+public class SchoolNewsDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//
@@ -20,9 +20,11 @@ public class MycarouselDO implements Serializable {
 	//
 	private String title;
 	//
-	private String picname;
+	private String content;
 	//
-	private String href;
+	private Date createtime;
+	//浏览次数
+	private Integer browseNumber;
 
 	/**
 	 * 设置：
@@ -51,35 +53,37 @@ public class MycarouselDO implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setPicname(String picname) {
-		this.picname = picname;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	/**
 	 * 获取：
 	 */
-	public String getPicname() {
-		return picname;
+	public String getContent() {
+		return content;
 	}
 	/**
 	 * 设置：
 	 */
-	public void setHref(String href) {
-		this.href = href;
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
 	}
 	/**
 	 * 获取：
 	 */
-	public String getHref() {
-		return href;
+	public Date getCreatetime() {
+		return createtime;
 	}
-
-	@Override
-	public String toString() {
-		return "MycarouselDO{" +
-				"id=" + id +
-				", title='" + title + '\'' +
-				", picname='" + picname + '\'' +
-				", href='" + href + '\'' +
-				'}';
+	/**
+	 * 设置：浏览次数
+	 */
+	public void setBrowseNumber(Integer browseNumber) {
+		this.browseNumber = browseNumber;
+	}
+	/**
+	 * 获取：浏览次数
+	 */
+	public Integer getBrowseNumber() {
+		return browseNumber;
 	}
 }

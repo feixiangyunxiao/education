@@ -43,6 +43,7 @@ public class UserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		String username = (String) token.getPrincipal();
+
 		Map<String, Object> map = new HashMap<>(16);
 		map.put("username", username);
 		String password = new String((char[]) token.getCredentials());
@@ -55,7 +56,6 @@ public class UserRealm extends AuthorizingRealm {
 		if (user == null) {
 			throw new UnknownAccountException("账号或密码不正确");
 		}
-
 		// 密码错误
 		if (!password.equals(user.getPassword())) {
 			throw new IncorrectCredentialsException("账号或密码不正确");

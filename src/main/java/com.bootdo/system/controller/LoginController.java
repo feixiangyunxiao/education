@@ -7,7 +7,10 @@ import com.bootdo.common.domain.FileDO;
 import com.bootdo.common.domain.Tree;
 import com.bootdo.common.service.FileService;
 import com.bootdo.common.utils.*;
+import com.bootdo.oa.domain.Response;
+import com.bootdo.system.dao.UserDao;
 import com.bootdo.system.domain.MenuDO;
+import com.bootdo.system.domain.UserDO;
 import com.bootdo.system.service.MenuService;
 import io.swagger.models.auth.In;
 import org.apache.shiro.SecurityUtils;
@@ -26,7 +29,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Controller
 public class LoginController extends BaseController {
@@ -39,10 +45,13 @@ public class LoginController extends BaseController {
     @Autowired
     BootdoConfig bootdoConfig;
 
+    @Autowired
+    UserDao userDao;
+
     @GetMapping({"/", ""})
     String welcome(Model model) {
 
-        return "redirect:/welcome/index";
+        return "redirect:/login";
     }
 
     @Log("请求访问主页")
@@ -66,16 +75,29 @@ public class LoginController extends BaseController {
     }
 
     @GetMapping("/login")
-    String login(Model model) {
-        model.addAttribute("username", bootdoConfig.getUsername());
-        model.addAttribute("password", bootdoConfig.getPassword());
+    String login(HttpServletRequest request) {
+        Subject subject = SecurityUtils.getSubject();
+        String username = CookieUtils.getCookie("saveMe", request);
+        if (!StringUtils.isEmpty(username)) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("username",username);
+            List<UserDO> list = userDao.list(map);
+            UserDO userDO = list.get(0);
+            if (null != userDO) {
+                UsernamePasswordToken token = new UsernamePasswordToken(username, userDO.getPassword());
+                subject.login(token);
+            }
+        }
+        if (subject.isAuthenticated()) {
+            return "redirect:/index";
+        }
         return "login";
     }
 
     @Log("登录")
     @PostMapping("/login")
     @ResponseBody
-    R ajaxLogin(String username, String password,String verify,HttpServletRequest request) {
+    R ajaxLogin(String username, String password,String verify,HttpServletRequest request, HttpServletResponse response) {
 
         try {
             //从session中获取随机数
@@ -91,20 +113,31 @@ public class LoginController extends BaseController {
             logger.error("验证码校验失败", e);
             return R.error("验证码校验失败");
         }
+
+        String isRememberMe = request.getParameter("isRememberMe");
+        if ("1".equals(isRememberMe)) {
+            CookieUtils.setCookie("saveMe", username, response, 60 * 60 * 24 * 7);
+        }
+
         password = MD5Utils.encrypt(username, password);
+
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
             return R.ok();
         } catch (AuthenticationException e) {
+            e.printStackTrace();
             return R.error("用户或密码错误");
         }
     }
 
     @GetMapping("/logout")
-    String logout() {
+    String logout(HttpServletResponse response) {
+
         ShiroUtils.logout();
+        CookieUtils.setCookie("saveMe", "", response, 0);
+
         return "redirect:/login";
     }
 

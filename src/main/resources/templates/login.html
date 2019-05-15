@@ -59,6 +59,11 @@
                        th:value="${username}"/>
                 <input type="password" name="password"
                        class="form-control pword m-b" th:value="${password}"/>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="isRememberMe" value="1" /><span class="text-center" style="margin-left: 5px; margin-bottom: 2px">记住我</span>
+                    </label>
+                </div>
                 <a id="login" class="btn btn-login btn-block">登录</a>
                 <div class="row">
                     <div class="col-xs-6 pull_left">
