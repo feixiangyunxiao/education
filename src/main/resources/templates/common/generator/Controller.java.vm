@@ -34,6 +34,15 @@ import com.bootdo.common.utils.R;
 public class ${className}Controller {
 	@Autowired
 	private ${className}Service ${classname}Service;
+
+	@ModelAttribute
+	public ${className} get(@RequestParam(required=false) ${pk.attrType} ${pk.attrname}) {
+		if (id != null){
+			return ${classname}Service.get(${pk.attrname});
+		}else{
+			return new ${className}();
+		}
+	}
 	
 	@GetMapping()
 	@RequiresPermissions("${pathName}:${classname}:${classname}")
@@ -54,19 +63,11 @@ public class ${className}Controller {
 	}
 	
 	@GetMapping("/add")
-	@RequiresPermissions("${pathName}:${classname}:add")
-	String add(){
-	    return "${pathName}/${classname}/add";
-	}
-
-	@GetMapping("/edit/{${pk.attrname}}")
 	@RequiresPermissions("${pathName}:${classname}:edit")
-	String edit(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname},Model model){
-		${className}DO ${classname} = ${classname}Service.get(${pk.attrname});
-		model.addAttribute("${classname}", ${classname});
+	String add(){
 	    return "${pathName}/${classname}/edit";
 	}
-	
+
 	/**
 	 * 保存
 	 */
@@ -78,16 +79,6 @@ public class ${className}Controller {
 			return R.ok();
 		}
 		return R.error();
-	}
-	/**
-	 * 修改
-	 */
-	@ResponseBody
-	@RequestMapping("/update")
-	@RequiresPermissions("${pathName}:${classname}:edit")
-	public R update( ${className}DO ${classname}){
-		${classname}Service.update(${classname});
-		return R.ok();
 	}
 	
 	/**

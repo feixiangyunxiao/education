@@ -49,23 +49,36 @@ function load() {
 								},
 																{
 									field : 'id', 
-									title : '' 
+									title : '标号'
 								},
 																{
 									field : 'title', 
-									title : '' 
+									title : '标题'
 								},
 																{
 									field : 'content', 
-									title : '' 
+									title : '内容'
 								},
 																{
 									field : 'createtime', 
-									title : '' 
+									title : '创建时间'
 								},
 																{
 									field : 'browseNumber', 
 									title : '浏览次数' 
+								},								{
+										field : 'status',
+										title : '是否为正文',
+										formatter : function (value, row, index) {
+											console.log(value)
+											var result = ''
+											if (value == 0) {
+												result = '<span style="color: green;">是</span>';
+											} else {
+												result = '<span style="color: red;">否</span>';
+											}
+											return result;
+										}
 								},
 																{
 									title : '操作',
@@ -95,7 +108,7 @@ function add() {
 		title : '增加',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
-		area : [ '800px', '520px' ],
+		area : [ '1000px', '720px' ],
 		content : prefix + '/add' // iframe的url
 	});
 }

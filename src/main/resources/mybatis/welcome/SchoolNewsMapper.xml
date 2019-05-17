@@ -8,7 +8,7 @@
 	</select>
 
 	<select id="list" resultType="com.bootdo.welcome.domain.SchoolNewsDO">
-		select `id`,`title`,`content`,`createtime`,`browse_number` from ed_school_news
+		select `id`,`title`,`content`,`createtime`,`browse_number`,`status` from ed_school_news
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
 		  		  <if test="title != null and title != ''"> and title = #{title} </if>
@@ -37,6 +37,7 @@
 		  		  <if test="content != null and content != ''"> and content = #{content} </if>
 		  		  <if test="createtime != null and createtime != ''"> and createtime = #{createtime} </if>
 		  		  <if test="browseNumber != null and browseNumber != ''"> and browse_number = #{browseNumber} </if>
+			      <if test="status != null and browseNumber != ''"> and browse_number = #{browseNumber} </if>
 		  		</where>
 	</select>
 	 
@@ -46,14 +47,16 @@
 			`title`, 
 			`content`, 
 			`createtime`, 
-			`browse_number`
+			`browse_number`,
+			`status`
 		)
 		values
 		(
 			#{title}, 
 			#{content}, 
 			#{createtime}, 
-			#{browseNumber}
+			#{browseNumber},
+			#{status}
 		)
 	</insert>
 	 
@@ -64,6 +67,7 @@
 			<if test="content != null">`content` = #{content}, </if>
 			<if test="createtime != null">`createtime` = #{createtime}, </if>
 			<if test="browseNumber != null">`browse_number` = #{browseNumber}</if>
+			<if test="status != null">`status` = #{status}</if>
 		</set>
 		where id = #{id}
 	</update>
