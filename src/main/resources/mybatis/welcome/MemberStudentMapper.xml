@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.welcome.dao.MemberStudentDao">
+
+	<sql id="Base_Column_List">
+    * </sql>
+
+	<select id="get" resultType="com.bootdo.welcome.domain.MemberStudentDO">
+		select
+		<include refid="Base_Column_List" />
+		from ed_member_student where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.welcome.domain.MemberStudentDO">
+		select
+		<include refid="Base_Column_List" />
+		from ed_member_student
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="headPhoto != null and headPhoto != ''"> and head_photo = #{headPhoto} </if>
+		  		  <if test="signature != null and signature != ''"> and signature = #{signature} </if>
+		  		  <if test="nickName != null and nickName != ''"> and nick_name = #{nickName} </if>
+		  		  <if test="stuNumber != null and stuNumber != ''"> and stu_number = #{stuNumber} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="spare != null and spare != ''"> and spare = #{spare} </if>
+		  		  <if test="stuOpenid != null and stuOpenid != ''"> and stu_openid = #{stuOpenid} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from ed_member_student
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="headPhoto != null and headPhoto != ''"> and head_photo = #{headPhoto} </if>
+		  		  <if test="signature != null and signature != ''"> and signature = #{signature} </if>
+		  		  <if test="nickName != null and nickName != ''"> and nick_name = #{nickName} </if>
+		  		  <if test="stuNumber != null and stuNumber != ''"> and stu_number = #{stuNumber} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="spare != null and spare != ''"> and spare = #{spare} </if>
+		  		  <if test="stuOpenid != null and stuOpenid != ''"> and stu_openid = #{stuOpenid} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.welcome.domain.MemberStudentDO" useGeneratedKeys="true" keyProperty="id">
+		insert into ed_member_student
+		(
+											`head_photo`, 
+									`signature`, 
+									`nick_name`, 
+									`stu_number`, 
+									`password`, 
+									`spare`, 
+									`stu_openid`, 
+									`create_time`,
+									`android_client_id`,
+									`ios_client_id`
+						)
+		values
+		(
+													#{headPhoto}, 
+											#{signature}, 
+											#{nickName}, 
+											#{stuNumber}, 
+											#{password}, 
+											#{spare}, 
+											#{stuOpenid}, 
+											#{createTime},
+											#{androidClientId},
+											#{iosClientId}
+						)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.welcome.domain.MemberStudentDO">
+		update ed_member_student 
+		<set>
+			<if test="headPhoto != null">`head_photo` = #{headPhoto}, </if>
+			<if test="signature != null">`signature` = #{signature}, </if>
+			<if test="nickName != null">`nick_name` = #{nickName}, </if>
+			<if test="stuNumber != null">`stu_number` = #{stuNumber}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="spare != null">`spare` = #{spare}, </if>
+			<if test="stuOpenid != null">`stu_openid` = #{stuOpenid}, </if>
+			<if test="createTime != null">`create_time` = #{createTime},</if>
+			<if test="androidClientId != null">`android_client_id` = #{androidClientId},</if>
+			<if test="iosClientId != null">`ios_client_id` = #{iosClientId},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from ed_member_student where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from ed_member_student where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="getByStudyNumber">
+		select
+		<include refid="Base_Column_List" />
+		from ed_member_student where stu_number = #{value}
+	</select>
+
+	<update id="updateByStudyNumber">
+		update  ed_member_student
+		set stu_openid = #{openid}
+		where stu_number = #{studyNumber}
+	</update>
+
+</mapper>

@@ -129,8 +129,7 @@ public class GenUtils {
 
                 // 将文件写到特定的位置，就是将我们产生的java文件写入到项目中
                 // 参数template，指模板，新写的方法需要静态路径，也就是项目的路径
-                String filename = getFileName2(template, tableDO.getClassname(), config.getString("staticPath"), config.getString("package").substring(config.getString("package").lastIndexOf(".") + 1), config.getString("staticPath")+ config.getString("codePath"));
-                System.out.println("返回的文件名字：" + filename);
+                String filename = getFileName2(template, tableDO.getClassName(),tableDO.getClassname(), config.getString("staticPath"), config.getString("package").substring(config.getString("package").lastIndexOf(".") + 1), config.getString("staticPath")+ config.getString("codePath"));
                 if (StringUtils.isNotEmpty(filename)) {
                     File file = new File(filename);
                     if (file.exists()) {
@@ -242,9 +241,9 @@ public class GenUtils {
             return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
                     + packageName + File.separator + classname + File.separator + "add.html";
         }
-        if (template.contains("edit.html.vm")) {
+        if (template.contains("teacheredit.html.vm")) {
             return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
-                    + packageName + File.separator + classname + File.separator + "edit.html";
+                    + packageName + File.separator + classname + File.separator + "teacheredit.html";
         }
 
         if (template.contains("list.js.vm")) {
@@ -271,9 +270,8 @@ public class GenUtils {
     /**
      * 自定义获取文件名
      */
-    public static String getFileName2(String template, String className,String staticPath, String packageName, String packagePath) {
+    public static String getFileName2(String template, String className, String classname, String staticPath, String packageName, String packagePath) {
 
-        System.out.println("模板的名字为" + template);
 
         //String modulesname=config.getString("packageName");
 
@@ -302,21 +300,21 @@ public class GenUtils {
         }
 
         if (template.contains("Mapper.xml.vm")) {
-            return "main" + "/" + "resources" + "/" + "mybatis" + "/" + packageName + "/" + className + "Mapper.xml";
+            return staticPath + "/" + "resources" + "/" + "mybatis" + "/" + packageName + "/" + className + "Mapper.xml";
         }
 
         if (template.contains("list.html.vm")) {
             return staticPath + "/" + "resources" + "/" + "templates" + "/"
-                    + packageName + "/" + className + "/" + className + ".html";
+                    + packageName + "/" + classname + "/" + classname + ".html";
             //				+ "modules" + File.separator + "generator" + File.separator + className.toLowerCase() + ".html";
         }
        /* if (template.contains("add.html.vm")) {
             return "main" + File.separator + "resources" + File.separator + "templates" + File.separator
                     + packageName + File.separator + classname + File.separator + "add.html";
         }*/
-        if (template.contains("edit.html.vm")) {
+        if (template.contains("teacheredit.html.vm")) {
             return staticPath + "/" + "resources" + "/" + "templates" + "/"
-                    + packageName + "/" + className + "/" + "edit.html";
+                    + packageName + "/" + classname + "/" + classname + "teacheredit.html";
         }
 
       /*  if (template.contains("list.js.vm")) {

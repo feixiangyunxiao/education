@@ -48,7 +48,6 @@ public class GeneratorController {
 		response.setHeader("Content-Disposition", "attachment; filename=\"education" + tableName + ".zip\"");
 		response.addHeader("Content-Length", "" + data.length);
 		response.setContentType("application/octet-stream; charset=UTF-8");
-
 		IOUtils.write(data, response.getOutputStream());
 	}
 

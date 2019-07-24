@@ -76,6 +76,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login","anon"); //未失效
         filterChainDefinitionMap.put("/getVerify","anon"); //未失效
         filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/f/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");// 失效了
         filterChainDefinitionMap.put("/js/**", "anon");// 失效了
         filterChainDefinitionMap.put("/fonts/**", "anon");// 失效了

@@ -13,11 +13,11 @@ $().ready(function() {
 
 $.validator.setDefaults({
 	submitHandler : function() {
-		save(1);
+		save();
 	}
 });
-function save(status) {
-	$("#mystatus").val(status)
+function save() {
+
 	var content_sn = $("#content_sn").summernote('code');
 	$("#content").val(content_sn);
 	$.ajax({
@@ -48,13 +48,19 @@ function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({
 		rules : {
-			name : {
+			title : {
+				required : true
+			},
+			content : {
 				required : true
 			}
 		},
 		messages : {
-			name : {
-				required : icon + "请输入姓名"
+			title : {
+				required : icon + "请输入标题"
+			},
+			content : {
+				required : icon + "请输入新闻内容"
 			}
 		}
 	})

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ServletComponentScan
 @MapperScan("com.bootdo.*.dao")
+@ComponentScan(basePackages = {"com.bootdo.*","com.front.*"})
 @EnableScheduling
 @SpringBootApplication
 @EnableCaching

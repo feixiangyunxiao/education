@@ -147,9 +147,15 @@ public class DeptController extends BaseController {
 
 	@GetMapping("/tree")
 	@ResponseBody
-	public Tree<DeptDO> tree() {
+	public Tree<DeptDO> tree(@RequestParam(value = "deptId", defaultValue = "0") Long deptId) {
+
 		Tree<DeptDO> tree = new Tree<DeptDO>();
-		tree = sysDeptService.getTree();
+		if (deptId == 0) {
+			tree = sysDeptService.getTree();
+		} else {
+			tree = sysDeptService.getTree(deptId);
+		}
+
 		return tree;
 	}
 

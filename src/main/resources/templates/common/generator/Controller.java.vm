@@ -36,11 +36,11 @@ public class ${className}Controller {
 	private ${className}Service ${classname}Service;
 
 	@ModelAttribute
-	public ${className} get(@RequestParam(required=false) ${pk.attrType} ${pk.attrname}) {
+	public ${className}DO get(@RequestParam(required=false) ${pk.attrType} ${pk.attrname}) {
 		if (id != null){
 			return ${classname}Service.get(${pk.attrname});
 		}else{
-			return new ${className}();
+			return new ${className}DO();
 		}
 	}
 	

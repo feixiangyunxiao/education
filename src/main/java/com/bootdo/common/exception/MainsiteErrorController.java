@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +32,7 @@ public class MainsiteErrorController implements ErrorController {
     )
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
         int code = response.getStatus();
+        System.out.println("这是运行到了自己的patch方法");
         if (404 == code) {
             return new ModelAndView("error/404");
         } else if (403 == code) {
@@ -40,7 +42,6 @@ public class MainsiteErrorController implements ErrorController {
         } else {
             return new ModelAndView("error/500");
         }
-
     }
 
     @RequestMapping(value = ERROR_PATH)

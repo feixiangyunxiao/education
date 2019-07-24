@@ -34,7 +34,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 	
 	@Override
 	public int save(${className}DO ${classname}){
-		if (${cllassname}.getId() != null) {
+		if (${classname}.getId() != null) {
 			return ${classname}Dao.update(${classname});
 		}
 		return ${classname}Dao.save(${classname});

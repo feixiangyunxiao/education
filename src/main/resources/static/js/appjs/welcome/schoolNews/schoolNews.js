@@ -73,9 +73,9 @@ function load() {
 											console.log(value)
 											var result = ''
 											if (value == 0) {
-												result = '<span style="color: green;">是</span>';
-											} else {
 												result = '<span style="color: red;">否</span>';
+											} else {
+												result = '<span style="color: green;">是</span>';
 											}
 											return result;
 										}

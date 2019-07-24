@@ -75,6 +75,33 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
+    public Tree<DeptDO> getTree(Long id) {
+        List<Tree<DeptDO>> trees = new ArrayList<Tree<DeptDO>>();
+        List<DeptDO> sysDepts = sysDeptMapper.list(new HashMap<String, Object>(16));
+        for (DeptDO sysDept : sysDepts) {
+            Tree<DeptDO> tree = new Tree<DeptDO>();
+            tree.setId(sysDept.getDeptId().toString());
+            tree.setParentId(sysDept.getParentId().toString());
+            tree.setText(sysDept.getName());
+            Map<String, Object> state = new HashMap<>(16);
+            state.put("opened", true);
+
+            Long deptId = sysDept.getDeptId();
+            if (deptId == id.longValue()) {
+                state.put("selected", true);
+            } else {
+                state.put("selected", false);
+            }
+
+            tree.setState(state);
+            trees.add(tree);
+        }
+        // 默认顶级菜单为０，根据数据库实际情况调整
+        Tree<DeptDO> t = BuildTree.build(trees);
+        return t;
+    }
+
+    @Override
     public boolean checkDeptHasUser(Long deptId) {
         // TODO Auto-generated method stub
         //查询部门以及此部门的下级部门
