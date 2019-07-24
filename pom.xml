@@ -373,7 +373,7 @@
                 <configuration>
                     <verbose>true</verbose>
                     <fork>true</fork>
-                    <executable>/var/jenkins_home/jdk1.8/bin/javac</executable>
+                    <executable>/usr/lib/jvm/java-1.8-openjdk/bin/javac</executable>
                 </configuration>
             </plugin>
             <plugin>
